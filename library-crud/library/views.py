@@ -1,5 +1,7 @@
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views import View
+from django.shortcuts import redirect
 from .models import Book
 from .forms import BookForm
 
@@ -46,3 +48,11 @@ class BookDeleteView(DeleteView):
     model = Book
     template_name = "library/book_confirm_delete.html"
     success_url = reverse_lazy("book-list")
+
+
+class BookBulkDeleteView(View):
+    def post(self, request):
+        ids = request.POST.getlist("ids")
+        if ids:
+            Book.objects.filter(pk__in=ids).delete()
+        return redirect("book-list")
