@@ -1,6 +1,7 @@
 import csv
 import os
 from django.core.management.base import BaseCommand, CommandError
+from django.db import OperationalError
 from library.models import Book
 
 
@@ -21,8 +22,14 @@ class Command(BaseCommand):
             raise CommandError(f"File not found: {path}")
 
         if options["clear"]:
-            count, _ = Book.objects.all().delete()
-            self.stdout.write(self.style.WARNING(f"Deleted {count} existing books."))
+            try:
+                count, _ = Book.objects.all().delete()
+                self.stdout.write(self.style.WARNING(
+                    f"Deleted {count} existing books."))
+            except OperationalError:
+                raise CommandError(
+                    "Database table not found. Run 'python manage.py migrate' first."
+                )
 
         created = 0
         skipped = 0
@@ -31,7 +38,8 @@ class Command(BaseCommand):
             reader = csv.DictReader(f)
             for i, row in enumerate(reader, start=2):
                 try:
-                    available_raw = row.get("available", "true").strip().lower()
+                    available_raw = row.get(
+                        "available", "true").strip().lower()
                     available = available_raw in ("true", "1", "yes")
                     Book.objects.create(
                         title=row["title"].strip(),
@@ -41,10 +49,15 @@ class Command(BaseCommand):
                         available=available,
                     )
                     created += 1
+                except OperationalError:
+                    raise CommandError(
+                        "Database table not found. Run 'python manage.py migrate' first."
+                    )
                 except (KeyError, ValueError) as e:
                     self.stderr.write(f"Row {i} skipped — {e}")
                     skipped += 1
 
         self.stdout.write(self.style.SUCCESS(f"Imported {created} books."))
         if skipped:
-            self.stdout.write(self.style.WARNING(f"Skipped {skipped} rows due to errors."))
+            self.stdout.write(self.style.WARNING(
+                f"Skipped {skipped} rows due to errors."))
