@@ -1,6 +1,7 @@
 import csv
 import os
 from django.core.management.base import BaseCommand, CommandError
+from django.db import OperationalError
 from library.models import Book
 
 
@@ -21,8 +22,13 @@ class Command(BaseCommand):
             raise CommandError(f"File not found: {path}")
 
         if options["clear"]:
-            count, _ = Book.objects.all().delete()
-            self.stdout.write(self.style.WARNING(f"Deleted {count} existing books."))
+            try:
+                count, _ = Book.objects.all().delete()
+                self.stdout.write(self.style.WARNING(f"Deleted {count} existing books."))
+            except OperationalError:
+                raise CommandError(
+                    "Database table not found. Run 'python manage.py migrate' first."
+                )
 
         created = 0
         skipped = 0
@@ -41,6 +47,10 @@ class Command(BaseCommand):
                         available=available,
                     )
                     created += 1
+                except OperationalError:
+                    raise CommandError(
+                        "Database table not found. Run 'python manage.py migrate' first."
+                    )
                 except (KeyError, ValueError) as e:
                     self.stderr.write(f"Row {i} skipped — {e}")
                     skipped += 1
