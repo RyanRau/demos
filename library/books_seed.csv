@@ -1,0 +1,31 @@
+title,author,genre,published_year,available
+To Kill a Mockingbird,Harper Lee,Classic,1960,true
+1984,George Orwell,Science Fiction,1949,true
+The Great Gatsby,F. Scott Fitzgerald,Classic,1925,false
+Dune,Frank Herbert,Science Fiction,1965,true
+Pride and Prejudice,Jane Austen,Classic,1813,true
+The Name of the Wind,Patrick Rothfuss,Fantasy,2007,true
+Gone Girl,Gillian Flynn,Thriller,2012,false
+Sapiens,Yuval Noah Harari,Non-Fiction,2011,true
+The Road,Cormac McCarthy,Fiction,2006,true
+Harry Potter and the Philosopher's Stone,J.K. Rowling,Fantasy,1997,true
+The Girl with the Dragon Tattoo,Stieg Larsson,Mystery,2005,false
+Educated,Tara Westover,Biography,2018,true
+The Hitchhiker's Guide to the Galaxy,Douglas Adams,Science Fiction,1979,true
+Beloved,Toni Morrison,Historical Fiction,1987,true
+The Da Vinci Code,Dan Brown,Thriller,2003,false
+Thinking Fast and Slow,Daniel Kahneman,Non-Fiction,2011,true
+A Game of Thrones,George R.R. Martin,Fantasy,1996,true
+Rebecca,Daphne du Maurier,Mystery,1938,true
+The Catcher in the Rye,J.D. Salinger,Classic,1951,false
+Becoming,Michelle Obama,Biography,2018,true
+Brave New World,Aldous Huxley,Science Fiction,1932,true
+The Alchemist,Paulo Coelho,Fiction,1988,true
+Big Little Lies,Liane Moriarty,Mystery,2014,true
+The Handmaid's Tale,Margaret Atwood,Science Fiction,1985,false
+Crime and Punishment,Fyodor Dostoevsky,Classic,1866,true
+The Hunger Games,Suzanne Collins,Science Fiction,2008,true
+Outlander,Diana Gabaldon,Historical Fiction,1991,true
+The Silent Patient,Alex Michaelides,Thriller,2019,false
+Atomic Habits,James Clear,Non-Fiction,2018,true
+The Shadow of the Wind,Carlos Ruiz Zafón,Mystery,2001,true
