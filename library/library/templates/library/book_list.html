@@ -1,0 +1,54 @@
+{% extends "library/base.html" %}
+
+{% block content %}
+<div class="row mb-3">
+  <div class="col-md-6">
+    <form method="get" class="d-flex gap-2">
+      <input type="search" name="q" value="{{ query }}" class="form-control" placeholder="Search by title or author…">
+      <button class="btn btn-primary">Search</button>
+      {% if query %}<a href="{% url 'book-list' %}" class="btn btn-outline-secondary">Clear</a>{% endif %}
+    </form>
+  </div>
+</div>
+
+{% if books %}
+<table class="table table-hover align-middle">
+  <thead class="table-dark">
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Genre</th>
+      <th>Year</th>
+      <th>Available</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for book in books %}
+    <tr>
+      <td><a href="{% url 'book-detail' book.pk %}" class="text-decoration-none fw-semibold">{{ book.title }}</a></td>
+      <td>{{ book.author }}</td>
+      <td>{{ book.genre }}</td>
+      <td>{{ book.published_year }}</td>
+      <td>
+        {% if book.available %}
+          <span class="badge bg-success">Yes</span>
+        {% else %}
+          <span class="badge bg-secondary">No</span>
+        {% endif %}
+      </td>
+      <td class="text-end">
+        <a href="{% url 'book-edit' book.pk %}" class="btn btn-sm btn-outline-primary">Edit</a>
+        <a href="{% url 'book-delete' book.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<div class="text-center text-muted py-5">
+  <p class="fs-5">No books found{% if query %} for "<strong>{{ query }}</strong>"{% endif %}.</p>
+  <a href="{% url 'book-add' %}" class="btn btn-success">Add the first book</a>
+</div>
+{% endif %}
+{% endblock %}

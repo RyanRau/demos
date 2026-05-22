@@ -1,0 +1,34 @@
+{% extends "library/base.html" %}
+
+{% block content %}
+<div class="card shadow-sm" style="max-width: 600px;">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h4 class="mb-0">{{ book.title }}</h4>
+    {% if book.available %}
+      <span class="badge bg-success">Available</span>
+    {% else %}
+      <span class="badge bg-secondary">Unavailable</span>
+    {% endif %}
+  </div>
+  <div class="card-body">
+    <dl class="row mb-0">
+      <dt class="col-sm-4">Author</dt>
+      <dd class="col-sm-8">{{ book.author }}</dd>
+
+      <dt class="col-sm-4">Genre</dt>
+      <dd class="col-sm-8">{{ book.genre }}</dd>
+
+      <dt class="col-sm-4">Published</dt>
+      <dd class="col-sm-8">{{ book.published_year }}</dd>
+
+      <dt class="col-sm-4">Added</dt>
+      <dd class="col-sm-8">{{ book.added_at|date:"N j, Y" }}</dd>
+    </dl>
+  </div>
+  <div class="card-footer d-flex gap-2">
+    <a href="{% url 'book-edit' book.pk %}" class="btn btn-primary btn-sm">Edit</a>
+    <a href="{% url 'book-delete' book.pk %}" class="btn btn-danger btn-sm">Delete</a>
+    <a href="{% url 'book-list' %}" class="btn btn-outline-secondary btn-sm ms-auto">Back to list</a>
+  </div>
+</div>
+{% endblock %}

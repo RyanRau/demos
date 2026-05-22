@@ -1,0 +1,20 @@
+{% extends "library/base.html" %}
+
+{% block content %}
+<div class="card border-danger shadow-sm" style="max-width: 480px;">
+  <div class="card-header bg-danger text-white">
+    <h5 class="mb-0">Delete Book</h5>
+  </div>
+  <div class="card-body">
+    <p>Are you sure you want to delete <strong>{{ object }}</strong>?</p>
+    <p class="text-muted small">This action cannot be undone.</p>
+    <form method="post">
+      {% csrf_token %}
+      <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="{% url 'book-list' %}" class="btn btn-outline-secondary">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
