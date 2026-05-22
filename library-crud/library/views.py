@@ -54,5 +54,8 @@ class BookBulkDeleteView(View):
     def post(self, request):
         ids = request.POST.getlist("ids")
         if ids:
-            Book.objects.filter(pk__in=ids).delete()
+            books = Book.objects.filter(pk__in=ids)
+            deleted_titles = [b.name for b in books]
+            print(f"Deleting books: {deleted_titles}")
+            books.delete()
         return redirect("book-list")
